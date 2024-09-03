@@ -1,3 +1,4 @@
+import { Polygon } from 'geojson';
 import { NextFunction, Request, Response } from "express";
 import { Species } from "../../types/Species";
 import { MessageResponse } from "../../types/Messages";
@@ -96,12 +97,25 @@ const deleteSpecies = async (
     }
 
     res.json({
-      message: "species deleted",
+      message: "Species deleted",
       data: deletedSpecies,
     });
   } catch (error) {
     next(new CustomError((error as Error).message, 500));
   }
+};
+
+const findSpeciesByArea = async (
+  req: Request<{}, {}, Polygon>,
+  res: Response<Species[]>,
+  next: NextFunction
+) => {
+  try {
+    const species = await speciesModel.findByArea(req.body);
+    res.json(species);
+  } catch (error) {
+    next(new CustomError((error as Error).message, 500));
+  }
 }
 
-export { postSpecies, getSpecies, getSpecie, putSpecies, deleteSpecies };
+export { postSpecies, getSpecies, getSpecie, putSpecies, deleteSpecies, findSpeciesByArea };

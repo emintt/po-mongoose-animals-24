@@ -207,7 +207,7 @@ describe('GET /api/v1', () => {
     await getaAnimalsBySpecies(app, newSpeciesName);
   });
 
-  // delete test data
+// delete test data
 
   it('Should delete a category', async () => {
     if (Array.isArray(categoryResponse.data)) {
@@ -229,4 +229,4 @@ describe('GET /api/v1', () => {
     }
     await deleteAnimal(app, animalResponse.data._id);
   });
-});
+ });

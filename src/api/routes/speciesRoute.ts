@@ -4,13 +4,17 @@ import {
   getSpecie,
   getSpecies,
   postSpecies,
-  putSpecies
+  putSpecies,
+  findSpeciesByArea
 } from '../controllers/speciesController';
+import { addImageToSpecies } from '../../middlewares';
 
 const router = express.Router();
 
 
-router.route('/').post(postSpecies).get(getSpecies);
+router.route('/').post(addImageToSpecies, postSpecies).get(getSpecies);
+
+router.route('/area').post(findSpeciesByArea);
 
 router.route('/:id').get(getSpecie).put(putSpecies).delete(deleteSpecies);
 
